@@ -1,0 +1,15 @@
+{
+  "name": "Skile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "4.*",
+    "jade": "*",
+    "mongodb": "2.*",
+    "newrelic":"*",
+    "body-parser":"*"
+  }
+}

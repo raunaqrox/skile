@@ -1,0 +1,30 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("/images/gplaypattern.png");
+}
+
+a {
+  color: #00B7FF;
+}
+#title{
+	width: 100%;
+	margin-top: 20px;
+}
+#btn{
+	margin: 30px;
+}
+#container{
+	position: absolute;
+	left: 20%;
+	width: 50%;
+	text-align: center;
+}
+#hash{
+	margin-top: 30px;
+}
+ul{
+	list-style: none;
+}
+#delete{
+	float:right;
+}

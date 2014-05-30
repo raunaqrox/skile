@@ -1,0 +1,18 @@
+doctype html
+html
+	head
+	script(type="text/javascript",src='/javascripts/jquery-2.0.3.min.js')
+	script(type="text/javascript",src='/javascripts/reg.js')
+	link(type="text/css",rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+	link(type="text/css",rel='stylesheet', href='/stylesheets/style.css')
+	title=title
+	body
+		navbar
+			ul(class="nav nav-pills")
+				li(class="active") 
+					a(href="/") Home
+				li 
+					a(href="/login") login
+
+		div(id="container")
+			block content
