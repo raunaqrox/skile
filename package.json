@@ -6,9 +6,9 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "4.*",
+    "express": "4.*.*",
     "jade": "*",
-    "mongodb": "2.*",
+    "mongodb": "*",
     "newrelic":"*",
     "body-parser":"*"
   }
