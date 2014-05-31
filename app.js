@@ -82,6 +82,9 @@ app.get('/profile',function(req,res){
 app.get('/category',function(req,res){
 	res.render('category');
 });
+app.get('/create',function(req,res){
+	res.render('create');
+});
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);
 });
