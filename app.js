@@ -19,23 +19,37 @@ app.use(cookieParser('SuCrEeT'));
 app.use(cookieSession({keys:['sec1','sec2']}));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'jade');
+//middleware to check if user logged in or not
+var isLoggedIn = function(req, res, next) {
+  if (req.session && req.session.user)
+    next(); // user logged in, so pass
+  else
+    res.redirect('/login'); // not logged in, redirect to login page
+};
 app.get('/',function(req,res){
-	res.render('index');
+	if(req.session&&req.session.user){		
+		res.render('index2');
+	}
+	else{
+		res.render('index');
+	}
 });
 app.get('/login',function(req,res){
-	res.render('login');
+	if(req.session&&req.session.user){		
+		res.redirect('/');
+	}
+	else{		
+		res.render('login');
+	}
 });
 app.post('/login',function(req,res){
 	var found=false;
 	var user=req.body.user;	
 	var pass=req.body.pass;
-	db.collection('skile').find().toArray(function(err,items){
+	db.collection('skile').find({username:user,password:pass}).toArray(function(err,items){
 		if(!err){
 			for(var i=0;i<items.length;i++){
-				console.log(items[i].username);
-				console.log(items[i].password);
 				if(items[i].username==user&&items[i].password==pass){
-
 					found = true;
 					req.session.user=items[i].username;
 					req.session.pass=items[i].password;
@@ -45,10 +59,6 @@ app.post('/login',function(req,res){
 			}else{
 				console.log(err);
 			}
-			if(!found){
-				res.end(user+' not found');
-			}
-				
 			
 		
 	});
@@ -72,18 +82,29 @@ app.post('/register',function(req,res){
 app.get('/register',function(req,res){
 	res.render('register');
 });
-app.get('/profile',function(req,res){
+app.get('/profile',isLoggedIn,function(req,res){
 	db.collection('skile').findOne({username:req.session.user,password:req.session.pass},function(err,doc){
 		if(!err){
 			res.render('profile',{doc:{user:String(doc.username),pass:doc.password,email:doc.email}});
 		}
 	});
 });
-app.get('/category',function(req,res){
+app.get('/category',isLoggedIn,function(req,res){
 	res.render('category');
 });
-app.get('/create',function(req,res){
+app.get('/create',isLoggedIn,function(req,res){
 	res.render('create');
+});
+app.get('/logout',function(req,res){    
+	req.session=null;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    res.redirect('/');        
+});
+app.get('/islogged',function(req,res){
+	if(req.session&&req.session.user){
+		res.send('true');
+	}else{
+		res.send('false');
+	}
 });
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);
