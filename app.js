@@ -7,7 +7,9 @@ var port = process.env.PORT || 3000;
 app.set('title','Skile');
 app.locals.title='Skile';
 var MongoClient=require('mongodb').MongoClient;
-var db;
+var toSkip;//how many to skip in categories
+var limitCat=2;
+var db;//go get access to db outside connect
 MongoClient.connect("mongodb://skile:skilland@kahana.mongohq.com:10089/skile",function(err,database){
 	if(!err){
 		console.log("We are connected");
@@ -92,7 +94,7 @@ app.get('/profile',isLoggedIn,function(req,res){
 	});
 });
 app.get('/category',isLoggedIn,function(req,res){
-	db.collection('category').find({},{},{limit:2}).toArray(function(err,items){
+	db.collection('category').find({},{},{limit:limitCat}).toArray(function(err,items){
 		res.render('category',{items:items});
 	});
 });
@@ -143,7 +145,23 @@ app.get('/islogged',function(req,res){
 		res.send('false');
 	}
 });*/
-
+app.get('/category/:title',function(req,res){
+	var title=req.param('title');
+	db.collection('links').find({category:title}).toArray(function(err,items){
+		res.render('links',items);
+	});
+});
+app.get('/limitcat',function(req,res){
+	res.send(limitCat);
+});		
+app.get('/next/:current',function(req,res){
+	var current=req.param('current');
+	console.log(toSkip);
+});
+app.post('/next/:toskip',function(req,res){
+	toSkip=req.param('toskip');
+	res.end('got '+toSkip);
+});
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);
 });

@@ -1,13 +1,16 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("/images/gplaypattern.png");
+  /*background-image: url("/images/gplaypattern.png");*/
+  background-color: white;
 }
 
 a {
-  color: #00B7FF;
+  color: #111;
   font-size: 20px;
 }
 a:hover {
+	color:#f0ad4e;
+	background-color: #111!important;
 	text-decoration:none;
 }
 #container{
@@ -21,6 +24,8 @@ ul{
 }
 #logout{
 	float:right;
+	margin:0px;
+	padding: 0px;
 }
 #radio{
 	width: 20px;
@@ -49,6 +54,11 @@ ul{
 }
 #title>a{
 	color: #111;
+}
+#title>a:hover{
+	color: #f0ad4e;
+	border-radius: 5px;
+	background-color: none;
 }
 input{
 	margin-bottom: 3px;

@@ -24,4 +24,21 @@ $(document).ready(function(){
 			$('span').text('Passwords do not match!').show();
 		}
 	});
+	/****Category****/
+	//**		  **//
+		//	**	//
+var next = $('#next');
+var limitCat;
+var curr;
+$.get('/limitcat',function(data){
+	limitCat=data;
+	console.log(limitCat);
+});
+
+next.click(function(){
+	$.post('/next/'+curr,function(data){
+		console.log(data);
+	});
+	curr+=limitCat;
+});
 });
