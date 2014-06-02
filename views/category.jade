@@ -8,6 +8,11 @@ block content
 		h2 Category
 		div(id="category")
 			ul
-				li 
-					h4 Categories will come here
-include footer
+				li
+					-each item in items
+							h2(id="title")
+								a(href="/category/"+item.title)
+									=item.title
+							h4(id="description")
+								=item.description
+

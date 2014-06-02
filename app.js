@@ -90,22 +90,58 @@ app.get('/profile',isLoggedIn,function(req,res){
 	});
 });
 app.get('/category',isLoggedIn,function(req,res){
-	res.render('category');
+	db.collection('category').find({},{},{limit:2}).toArray(function(err,items){
+		res.render('category',{items:items});
+	});
 });
 app.get('/create',isLoggedIn,function(req,res){
 	res.render('create');
 });
-app.get('/logout',function(req,res){    
-	req.session=null;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-    res.redirect('/');        
+app.post('/create',isLoggedIn,function(req,res){
+	var title=req.body.title;
+	var desc=req.body.description;
+	var whycat=req.body.whycat;
+	var admin=req.body.admin;
+	var date=(new Date()).toJSON();
+
+	var id;
+	db.collection('skile').findOne({username:req.session.user,password:req.session.pass},function(err,doc){
+		if(!err){
+			id=doc._id;
+			console.log(id);
+		}
+	category={
+		creatorId:id,//creator
+		title:title,
+		description:desc,
+		whyCategory:whycat,
+		admin:admin, //0 for no,1 for yes
+		createdOn:date
+	}
+	db.collection('category').insert(category,function(err,result){
+		if(err){
+			res.send(err);
+		}
+		else{
+			res.redirect('/category');
+		}
+		});
+
+
+	});
 });
+app.get('/logout',function(req,res){    
+	req.session=null;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    res.redirect('/');   
+});/*
 app.get('/islogged',function(req,res){
 	if(req.session&&req.session.user){
 		res.send('true');
 	}else{
 		res.send('false');
 	}
-});
+});*/
+
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);
 });

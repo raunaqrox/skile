@@ -7,13 +7,8 @@ a {
   color: #00B7FF;
   font-size: 20px;
 }
-a:hover {text-decoration:none;}
-#title{
-	width: 100%;
-	margin-top: 20px;
-}
-#btn{
-	margin: 30px;
+a:hover {
+	text-decoration:none;
 }
 #container{
 	position: absolute;
@@ -21,15 +16,37 @@ a:hover {text-decoration:none;}
 	width: 50%;
 	text-align: center;
 }
-#hash{
-	margin-top: 30px;
-}
 ul{
 	list-style: none;
 }
-#delete{
-	float:right;
-}
 #logout{
 	float:right;
+}
+#radio{
+	width: 20px;
+	height: 20px;
+	margin-bottom: 10px;
+}
+#mess{
+	color: orange;
+	font-size: 17px;
+}
+#description{
+	background-color: #111;
+	padding: 20px;
+	color: #f0ad4e;
+	border-radius: 20px;
+	border-bottom: 10px solid;
+	margin-bottom: 40px;
+}
+
+#title{
+	color: #111;
+	background-color: #f0ad4e;
+	border-radius: 20px;
+	padding:0px;	
+	border-bottom: 10px solid;
+}
+#title>a{
+	color: #111;
 }
