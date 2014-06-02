@@ -44,7 +44,7 @@ app.get('/login',function(req,res){
 });
 app.post('/login',function(req,res){
 	var found=false;
-	var user=req.body.user;	
+	var user=req.body.user;
 	var pass=req.body.pass;
 	db.collection('skile').find({username:user,password:pass}).toArray(function(err,items){
 		if(!err){
@@ -53,11 +53,13 @@ app.post('/login',function(req,res){
 					found = true;
 					req.session.user=items[i].username;
 					req.session.pass=items[i].password;
-					res.redirect('/profile');
 				}
 			}
 			}else{
 				console.log(err);
+			}
+			if(found==true){
+				res.redirect('/profile');
 			}
 			
 		
@@ -75,7 +77,7 @@ app.post('/register',function(req,res){
 			res.send(err);
 		}
 		else{
-			res.send(user.username+' added');
+			res.redirect('login');
 		}
 	});
 });

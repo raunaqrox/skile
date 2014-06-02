@@ -23,7 +23,5 @@ $(document).ready(function(){
 			e.preventDefault();
 			$('span').text('Passwords do not match!').show();
 		}
-		else{			
-		}
 	});
 });

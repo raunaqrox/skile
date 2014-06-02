@@ -1,10 +1,9 @@
 extends index
 block content
 	form(method="POST",action='/register',name='register',id="reg")
-		input(class="form-control",type='text',name='user',placeholder="Username")
-		input(class="form-control",id="pass",type='password',name='pass',placeholder="Password")
-		input(class="form-control",id="con_pass",type='password',name='re-pass',placeholder="Confirm Password")
-		span
-		input(class="form-control",type='email',name='email',placeholder="Email")
+		input(class="form-control",type='text',id="user",name='user',placeholder="Username",required)
+		input(class="form-control",id="pass",type='password',name='pass',placeholder="Password",required)
+		input(class="form-control",id="con_pass",type='password',name='re-pass',placeholder="Confirm Password",required)
+		input(class="form-control",id="email",type='email',name='email',placeholder="Email",required)
 		input(class="btn btn-lg btn-primary btn-block",type='submit')
 		
