@@ -52,6 +52,9 @@ console.log(urlCheck);
 });
 //toggle add links
 $('#add').on('click',function(){
+	$(this).text(function(i,text){
+		return text==="Add Link" ? "Hide" : "Add Link";
+	});
 	$('#links2').slideToggle('slow');
 });
 });

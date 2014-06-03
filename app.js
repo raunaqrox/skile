@@ -177,8 +177,16 @@ app.get('/links',function(req,res){
 	});
 });
 app.get('/links/:category',function(req,res){	
-	var  category=req.param('category');
-	res.render('links',{category:category});
+	var  category=req.param('category');	
+	var title = new RegExp("^" + category + "$",'i');
+	db.collection('links').find({category:title}).toArray(function(err,items){
+		if(err){
+			res.send(err);
+		}else{
+			console.log(items);
+			res.render('catlinks',{items:items,category:category});
+		}
+	});
 });
 app.post('/links',isLoggedIn,function(req,res){
 	var url=req.body.url;
@@ -206,6 +214,7 @@ app.post('/links',isLoggedIn,function(req,res){
 	});
 	});
 });
+app
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);
 });
