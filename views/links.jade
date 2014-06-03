@@ -12,7 +12,6 @@ block content
 		li
 			each item in items
 					h2(id="title")
-						a(href="/links/"+item.title,class="btn btn-warning")
-							item.title
+						a(href=item.url,class="btn btn-warning") 
+							=item.url
 					h4(id="description")
-							tem.description

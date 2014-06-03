@@ -192,6 +192,7 @@ app.post('/links',isLoggedIn,function(req,res){
 	var link={
 		url:url,
 		category:category,
+		description:description,
 		catId:id,
 		username:req.session.user,
 		tags:tags
