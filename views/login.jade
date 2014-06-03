@@ -2,12 +2,12 @@ extends index
 block content
 	p Have an account, then login!
 	form(method="POST",action='/login',name='login')
-		input(class="form-control",type='text',name='user',placeholder="Username")
-		input(class="form-control",type='password',name='pass',placeholder="Password")
+		input(class="form-control input",type='text',name='user',placeholder="Username",required)
+		input(class="form-control input",type='password',name='pass',placeholder="Password",required)
 		label(class="checkbox")
-			input(type="checkbox")
-			p Remember me
-		input(class="btn btn-lg btn-primary btn-block",type='submit',value='login')
+		//	input(type="checkbox")
+		//	p Remember me
+		input(class="btn-lg btn-block",type='submit',id='log',value='Submit')
 		br
 		p Don't have an account?
 		a(href="/register") Register

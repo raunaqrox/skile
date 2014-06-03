@@ -30,10 +30,10 @@ var isLoggedIn = function(req, res, next) {
 };
 app.get('/',function(req,res){
 	if(req.session&&req.session.user){		
-		res.render('index2');
+		res.render('home2');
 	}
 	else{
-		res.render('index');
+		res.render('home');
 	}
 });
 app.get('/login',function(req,res){
@@ -62,6 +62,8 @@ app.post('/login',function(req,res){
 			}
 			if(found==true){
 				res.redirect('/profile');
+			}else{
+				res.redirect('/login');
 			}
 			
 		
@@ -94,7 +96,7 @@ app.get('/profile',isLoggedIn,function(req,res){
 	});
 });
 app.get('/category',isLoggedIn,function(req,res){
-	db.collection('category').find({},{},{limit:limitCat}).toArray(function(err,items){
+	db.collection('category').find().toArray(function(err,items){
 		res.render('category',{items:items});
 	});
 });
@@ -113,7 +115,7 @@ app.post('/create',isLoggedIn,function(req,res){
 		if(!err){
 			id=doc._id;
 			console.log(id);
-		}
+		
 	category={
 		creatorId:id,//creator
 		title:title,
@@ -131,8 +133,8 @@ app.post('/create',isLoggedIn,function(req,res){
 		}
 		});
 
-
-	});
+	}
+});
 });
 app.get('/logout',function(req,res){    
 	req.session=null;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
@@ -147,20 +149,61 @@ app.get('/islogged',function(req,res){
 });*/
 app.get('/category/:title',function(req,res){
 	var title=req.param('title');
-	db.collection('links').find({category:title}).toArray(function(err,items){
-		res.render('links',items);
+	db.collection('category').findOne({title:title},function(err,item){
+		res.render('catpage',{category:{title:title,description:item.description}});
 	});
 });
 app.get('/limitcat',function(req,res){
-	res.send(limitCat);
-});		
+	res.send({limitCat:limitCat});
+});	/*	
 app.get('/next/:current',function(req,res){
 	var current=req.param('current');
 	console.log(toSkip);
-});
+});*/
 app.post('/next/:toskip',function(req,res){
-	toSkip=req.param('toskip');
-	res.end('got '+toSkip);
+	toSkip=req.param('toskip')*2;
+	db.collection('category').find({},{},{skip:toSkip,limit:limitCat}).toArray(function(err,items){
+		res.send(items);
+	});
+});
+app.get('/links',function(req,res){
+	db.collection('links').find().toArray(function(err,items){
+		if(err){
+			res.send(err);
+		}else{
+			console.log(items[0]);
+			res.render('links',{items:items});
+		}
+	});
+});
+app.get('/links/:category',function(req,res){	
+	var  category=req.param('category');
+	res.render('links',{category:category});
+});
+app.post('/links',isLoggedIn,function(req,res){
+	var url=req.body.url;
+	var category=req.body.category;
+	var description=req.body.description;
+	var tags=req.body.tags.split(',');
+	var title = new RegExp("^" + category + "$",'i');
+	console.log(title);
+	db.collection('category').findOne({title:title},function(err,item){
+		var id=item._id
+	var link={
+		url:url,
+		category:category,
+		catId:id,
+		username:req.session.user,
+		tags:tags
+	}
+	db.collection('links').insert(link,function(err,result){
+		if(err){
+			res.send(err);
+		}else{
+			res.redirect('/links/'+category);
+		}
+	});
+	});
 });
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);

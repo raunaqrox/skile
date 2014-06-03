@@ -26,19 +26,32 @@ $(document).ready(function(){
 	});
 	/****Category****/
 	//**		  **//
-		//	**	//
+		//	**	///
+		/*
 var next = $('#next');
 var limitCat;
-var curr;
-$.get('/limitcat',function(data){
-	limitCat=data;
-	console.log(limitCat);
+var split=$('#nex').attr('href').split('/');
+var curr=paresInt(split[split.length-1]);
+/*$.get('/limitcat',function(data){
+	limitCat=data.limitCat;
+	curr=1;
 });
+$('#nex').attr('href','/category/'+curr);*/
+//link matching//
 
-next.click(function(){
-	$.post('/next/'+curr,function(data){
-		console.log(data);
-	});
-	curr+=limitCat;
+var url;
+var urlCheck;
+function isUrl(s) {
+	var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+	return regex.test(s);
+}
+$('#url').on('input',function(){
+url=$('#url').val();
+urlCheck=isUrl(url);
+console.log(urlCheck);
+});
+//toggle add links
+$('#add').on('click',function(){
+	$('#links2').slideToggle('slow');
 });
 });

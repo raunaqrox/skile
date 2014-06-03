@@ -9,8 +9,6 @@ a {
   font-size: 20px;
 }
 a:hover {
-	color:#f0ad4e;
-	background-color: #111!important;
 	text-decoration:none;
 }
 #container{
@@ -58,8 +56,58 @@ ul{
 #title>a:hover{
 	color: #f0ad4e;
 	border-radius: 5px;
-	background-color: none;
+	background-color: #111!important;;
 }
 input{
 	margin-bottom: 3px;
+}
+#log{	
+	background-color: #111;
+	color: #f0ad4e;
+	border-radius: 20px;
+	border-bottom: 10px solid;
+}
+.but>a{
+	background-color: #111;
+	color: #f0ad4e;
+	border-bottom: 10px solid;
+}
+.but>a:hover{
+	color:#111;
+	background-color: #f0ad4e!important;
+}
+#search{
+	height:50px;
+	border-color:#f0ad4e;
+	box-shadow:; 
+	color: #f0ad4e;
+	background-color: #111;
+	margin-top: 140px;
+}
+
+#log2{
+	background-color: #111;
+	color: #f0ad4e;
+	width: 30%;
+	margin: auto;
+	height: 45px;
+	border-radius: 20px;
+	border-bottom: 10px solid;
+}
+#prof{
+	margin-top: 40px;
+	color: #f0ad4e;
+	background-color: #111;
+	border-bottom: 10px solid;
+	border-radius: 13px;
+}.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+background-color: #111;
+}
+.input{
+	margin:20px;
+	height:50px;
+	border-color:#f0ad4e;
+	box-shadow:; 
+	color: #f0ad4e;
+	background-color: #111;
 }
