@@ -1,4 +1,13 @@
 $(document).ready(function(){	
+	//Ajax gif load
+var $loading = $('#aj').hide();
+$(document)
+  .ajaxStart(function () {
+    $loading.show();
+  })
+  .ajaxStop(function () {
+    $loading.hide();
+  });
 	var pass;
 	var con_pass;
 	$('#pass').on('input',function(){
@@ -57,4 +66,15 @@ $('#add').on('click',function(){
 	});
 	$('#links2').slideToggle('slow');
 });
+//search
+ $('#search').on('keyup', function(e){
+   if(e.keyCode === 13) {
+     var parameters = { search: $(this).val() };
+       $.get( '/search',parameters, function(data) {
+       	console.log(data);
+		  $('#results').html("<a href="+data[0].url+'>'+data[0].title+'</a>');
+  	});
+    }
+ });
+
 });

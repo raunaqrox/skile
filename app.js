@@ -114,7 +114,6 @@ app.post('/create',isLoggedIn,function(req,res){
 	db.collection('skile').findOne({username:req.session.user,password:req.session.pass},function(err,doc){
 		if(!err){
 			id=doc._id;
-			console.log(id);
 		
 	category={
 		creatorId:id,//creator
@@ -171,7 +170,6 @@ app.get('/links',function(req,res){
 		if(err){
 			res.send(err);
 		}else{
-			console.log(items[0]);
 			res.render('links',{items:items});
 		}
 	});
@@ -183,21 +181,25 @@ app.get('/links/:category',function(req,res){
 		if(err){
 			res.send(err);
 		}else{
-			console.log(items);
 			res.render('catlinks',{items:items,category:category});
 		}
 	});
 });
 app.post('/links',isLoggedIn,function(req,res){
 	var url=req.body.url;
+	var title=req.body.title;
 	var category=req.body.category;
 	var description=req.body.description;
 	var tags=req.body.tags.split(',');
+	tags.concat(url.split('/'));
+	tags.concat(description.split(' '));
+	tags.push(category);
+	tags.concat(title.split(' '));
 	var title = new RegExp("^" + category + "$",'i');
-	console.log(title);
 	db.collection('category').findOne({title:title},function(err,item){
 		var id=item._id
 	var link={
+		title:title,
 		url:url,
 		category:category,
 		description:description,
@@ -214,7 +216,13 @@ app.post('/links',isLoggedIn,function(req,res){
 	});
 	});
 });
-app
+app.get('/search',function(req,res){
+	var query=req.query.search;
+	a=query.split(' ');
+	db.collection('links').find({tags:{$in:a}}).toArray(function(err,items){
+		res.send(items);
+	});
+});
 var server = app.listen(port,function(){
 	console.log('Listening on port %d',port);
 });

@@ -111,3 +111,16 @@ background-color: #111;
 	color: #f0ad4e;
 	background-color: #111;
 }
+#log3{
+	background-color: #111;
+	color: #f0ad4e;
+	border-radius: 20px;
+	border-bottom: 10px solid;
+	margin:auto;
+}
+#results{
+	margin-top: 30px;
+}
+#results >a{
+	color: green;
+}

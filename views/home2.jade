@@ -1,5 +1,8 @@
 extends index2
 block content
-	form(action="/links",method="post")
+	div#sea
 		input(name="search",class="form-control",id="search",placeholder="What do you want to learn today?")
-		input(class="btn-block",type='submit',id='log2',value='Learn')
+		//input(class="btn-block",type='submit',id='log2',value='Learn')
+		img(src="/images/ajax-loader.gif" id="aj")
+	div#results
+	
