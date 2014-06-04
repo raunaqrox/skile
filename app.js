@@ -190,14 +190,19 @@ app.post('/links',isLoggedIn,function(req,res){
 	var title=req.body.title;
 	var category=req.body.category;
 	var description=req.body.description;
-	var tags=req.body.tags.split(',');
-	tags.concat(url.split('/'));
-	tags.concat(description.split(' '));
-	tags.push(category);
-	tags.concat(title.split(' '));
+	var tags=req.body.tags.toLowerCase().split(',');
+	tags.concat(url.toLowerCase().split('/'));
+	tags.concat(description.toLowerCase().split(' '));
+	tags.push(category.toLowerCase());
+	tags.concat(title.toLowerCase().split(' '));
 	var a = new RegExp("^" + category + "$",'i');
-	db.collection('category').findOne({title:a},function(err,item){
-		var id=item._id
+	db.collection('category').find({title:a}).toArray(function(err,item){
+		if(item.length==0){
+			var error="Category "+category+" not found."
+			res.render('error',{error:error});
+			res.end();
+		}
+	var id=item._id;
 	var link={
 		title:title,
 		url:url,
@@ -218,7 +223,7 @@ app.post('/links',isLoggedIn,function(req,res){
 });
 app.get('/search',function(req,res){
 	var query=req.query.search;
-	a=query.split(' ');
+	a=query.toLowerCase().split(' ');
 	db.collection('links').find({tags:{$in:a}}).toArray(function(err,items){
 		res.send(items);
 	});

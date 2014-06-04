@@ -9,8 +9,8 @@ block content
 		input(class='form-control input',name="tags",placeholder="tags   eg:coding, programming")
 		input(type="submit",value="Add",class="btn btn-warning")
 	ul
-		li
-			each item in items
+		each item in items
+			li
 					h2(id="title")
 						a(href=item.url,class="btn btn-warning") 
 							=item.url
