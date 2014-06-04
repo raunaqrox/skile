@@ -195,8 +195,8 @@ app.post('/links',isLoggedIn,function(req,res){
 	tags.concat(description.split(' '));
 	tags.push(category);
 	tags.concat(title.split(' '));
-	var title = new RegExp("^" + category + "$",'i');
-	db.collection('category').findOne({title:title},function(err,item){
+	var a = new RegExp("^" + category + "$",'i');
+	db.collection('category').findOne({title:a},function(err,item){
 		var id=item._id
 	var link={
 		title:title,
