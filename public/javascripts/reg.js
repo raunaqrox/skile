@@ -72,10 +72,13 @@ $('#add').on('click',function(){
      var parameters = { search: $(this).val() };
      var getAj=  $.get( '/search',parameters, function(data) {
        		if(data.length===0){
+       			$('#results').html('');
        			getAj.abort();
        		}
-       		else
-		  $('#results').html("<a href="+data[0].url+'>'+data[0].title+'</a>');
+       		else{
+       			var res1='<a href='+data[0].url+' '+"><h3>"+data[0].title+"</h3></a>";
+		  $('#results').html(res1);
+       		}
   	});
     }
  });
