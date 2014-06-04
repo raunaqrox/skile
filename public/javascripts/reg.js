@@ -72,7 +72,7 @@ $('#add').on('click',function(){
      var parameters = { search: $(this).val() };
      var getAj=  $.get( '/search',parameters, function(data) {
        		if(data.length===0){
-       			$('#results').html('');
+       			$('#results').html('Not found');
        			getAj.abort();
        		}
        		else{
