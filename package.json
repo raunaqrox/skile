@@ -12,6 +12,7 @@
     "newrelic":"*",
     "body-parser":"*",
     "cookie-parser":"*",
-    "cookie-session":"*"
+    "cookie-session":"*",
+    "nodemon":"*"
   }
 }

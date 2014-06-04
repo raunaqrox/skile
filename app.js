@@ -185,7 +185,7 @@ app.get('/links/:category',function(req,res){
 		}
 	});
 });
-app.post('/links',isLoggedIn,function(req,res){
+app.post('/links',isLoggedIn,function(req,res,next){
 	var url=req.body.url;
 	var title=req.body.title;
 	var category=req.body.category;
@@ -196,11 +196,13 @@ app.post('/links',isLoggedIn,function(req,res){
 	tags.push(category.toLowerCase());
 	tags.concat(title.toLowerCase().split(' '));
 	var a = new RegExp("^" + category + "$",'i');
+try{
 	db.collection('category').find({title:a}).toArray(function(err,item){
 		if(item.length==0){
 			var error="Category "+category+" not found."
 			res.render('error',{error:error});
 			res.end();
+			next(err);
 		}
 	var id=item._id;
 	var link={
@@ -214,12 +216,16 @@ app.post('/links',isLoggedIn,function(req,res){
 	}
 	db.collection('links').insert(link,function(err,result){
 		if(err){
-			res.send(err);
+			next(err);
+	//		res.send(err);
 		}else{
 			res.redirect('/links/'+category);
 		}
 	});
 	});
+}catch(ex){
+	res.render('error',{error:ex});
+}
 });
 app.get('/search',function(req,res){
 	var query=req.query.search;
