@@ -124,3 +124,6 @@ background-color: #111;
 #results >a{
 	color: green;
 }
+#regnav{
+	float: right;
+}
