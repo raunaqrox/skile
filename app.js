@@ -25,7 +25,7 @@ var isLoggedIn = function(req, res, next) {
     next(); // user logged in, so pass
   else
     res.redirect('/login'); // not logged in, redirect to login page
-};	
+};
 app.get('/',function(req,res){
 	if(req.session&&req.session.user){		
 		res.render('home2');
